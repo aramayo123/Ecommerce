@@ -1,0 +1,2 @@
+{{ $categoria->id }}
+{{ $categoria->nombre }}
