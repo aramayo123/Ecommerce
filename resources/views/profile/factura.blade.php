@@ -14,19 +14,30 @@
   <div class="container mx-auto border my-10 w-2/3 p-10">
     <div class="flex flex-cols-2 justify-between">
       <p class="text-2xl font-bold">Ecommerce</p>
-      <p class="text-xl font-bold">{{ $ticket->estadoTicket() }}</p>
+      <div class="">
+        @if (!$ticket->bool_pagado)
+          <p class="bg-red-500 text-white py-1 px-2 rounded text-xl font-bold mb-2">{{ $ticket->estado }}</p>
+        @else
+          <p class="bg-green-500 text-white py-1 px-2 rounded text-xl font-bold mb-2">{{ $ticket->estado }}</p>
+        @endif
+        
+        @if (!$ticket->bool_pagado && !$ticket->bool_cancelado)
+          <img src="{{ asset('icons/Mercado-Pago-Logo.png') }}" alt="" width="100">
+          <a href="{{ $ticket->url_payment }}" class="text-white bg-blue-400 rounded hover:bg-blue-500 p-2 mt-5">Pagar Ahora</a>
+        @endif
+      </div>
     </div>
-    <p class="font-xl font-bold">Factura nro: {{ $ticket->id }}</p>
+    <p class="text-2xl font-bold">Factura Nº: {{ $ticket->id }}</p>
     <hr class="my-5">
     <div class="flex flex-cols-2 justify-between">
       <div class="text-left">
         <p class="font-xl font-bold">Facturado a</p>
         <p>{{ $ticket->User->name }}</p>
         <p>{{ $ticket->direccion }}</p>
-        <p>Salta, Salta, 4400</p>
-        <p>Argentina</p>
+        <p>{{ $ticket->ciudad }}, {{ $ticket->provincia }}, {{ $ticket->codigo_postal }}</p>
+        <p>{{ $ticket->pais }}</p>
         <p class="font-xl font-bold">Fecha de la factura</p>
-        <p>{{ $ticket->date_created }}</p>
+        <p>{{ $ticket->fecha_creacion }} a las {{ $ticket->hora_creacion }}</p>
       </div>
       <div class="text-right">
         <p class="font-xl font-bold">Pagar a</p>
@@ -35,7 +46,7 @@
         <br>
         <br>
         <p class="font-xl font-bold">Método de pago</p>
-        <p>{{ $ticket->MetodoDePago() }}</p>
+        <p>Mercado pago</p>
       </div>
     </div>
 
@@ -87,15 +98,15 @@
     </div>
     <hr class="mb-1">
     <div class="grid grid-cols-4 my-2 text-center">
-      <p>Monday, June 6th, 2022</p>
+      <p>{{ $ticket->fecha_del_pago }}</p>
       <p>Tarjeta de crédito/débito, Pago Facil y Rapipago</p>
       <p>{{ $ticket->id_mercadopago }}</p>
       <p>${{ $ticket->total_precio }}.00ARS</p>
     </div>
 
-    <div class="text-right font-bold mt-2">
-      <a href="{{ url('/pdf/view/'.$ticket->id) }}" class="mx-1 border p-2">Imprimir</a>
-      <a href="{{ url('/pdf/download/'.$ticket->id) }}" class="border p-2">Descargar</a>
+    <div class="text-right font-bold mt-10">
+      <a href="{{ url('/pdf/view/'.$ticket->id) }}" class="mx-1 border p-2 rounded hover:bg-gray-200">Imprimir</a>
+      <a href="{{ url('/pdf/download/'.$ticket->id) }}" class="border p-2 rounded hover:bg-gray-200">Descargar</a>
     </div>
   </div>
 </body>

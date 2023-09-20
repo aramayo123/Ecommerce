@@ -3,22 +3,55 @@
 <div class="mx-auto container bg-gray-800 mb-10 mt-10 flex flex-cols-2 justify-between">   
     <div class="w-5/12 mx-auto p-5 text-white">
         <p class="mx-auto rounded m-5 p-5 bg-gray-700 text-white">Para completar el pago necesitamos los siguientes datos</p>
+        
+        @if ($errors->any())
+            <div class="mx-auto rounded m-5 p-5 bg-gray-700 text-white">
+                @foreach ( $errors->all() as $error)
+                    <p class="text-red-500">{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
         <form action="{{ route('payment') }}" method="post" class="mx-auto rounded m-5 p-5 bg-gray-700 text-gray-400">
             @csrf
             <div class="mb-6">
-                <label for="direccion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion: </label>
-                <x-text-input type="text" id="direccion" name="direccion" :value="old('direccion')" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ejemplo: Don emilio manzana j piso 3 casa 2"/>
-                @error('direccion')
-                    <p class="p-2 text-left text-red-500">{{ $message }}</p>
-                @enderror
+                <label for="direccion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion: <p class="inline-block text-red-500">*</p></label>
+                <x-text-input type="text" id="direccion" name="direccion" :value="old('direccion')" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Direccion"/>
             </div>
             <div class="mb-6">
-                <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono: </label>
-                <x-text-input type="number" id="telefono" name="telefono" :value="old('telefono')" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ejemplo: +5493875123456"/>
-                @error('telefono')
-                    <p class="p-2 text-left text-red-500">{{ $message }}</p>
-                @enderror
+                <label for="contacto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contacto: <p class="inline-block text-red-500">*</p></label>
+                <div>
+                    <select name="caracteristica" id="caracteristica" class="inline-block text-black rounded font-bold">
+                        <option value="+54" class="font-bold">+54</option>
+                        <option value="+55" class="font-bold">+55</option>
+                    </select>
+                    <x-text-input type="text" class="inline-block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="contacto" name="contacto" :value="old('contacto')" placeholder="Contacto"/>
+                </div>
             </div>
+
+            <div class="mb-6 flex flex-cols-3 gap-1">
+                <div>
+                    <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad: <p class="inline-block text-red-500">*</p></label>
+                    <x-text-input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="ciudad" name="ciudad" :value="old('ciudad')" placeholder="Ciudad"/>
+                </div>
+                <div>
+                    <label for="provincia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia: <p class="inline-block text-red-500">*</p></label>
+                    <x-text-input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="provincia" name="provincia" :value="old('provincia')" placeholder="Provincia"/>
+                </div>
+                <div>
+                    <label for="codigo_postal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo Postal: <p class="inline-block text-red-500">*</p></label>
+                    <x-text-input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="codigo_postal" name="codigo_postal" :value="old('codigo_postal')" placeholder="Codigo Postal"/>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label for="pais" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pais: <p class="inline-block text-red-500">*</p></label>
+                <select id="pais" name="pais" class="font-bold bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="Argentina" class="font-bold">Argentina</option>
+                    <option value="Chile" class="font-bold">Chile</option>
+                    <option value="Brazil" class="font-bold">Brazil</option>
+                    <option value="Mexico" class="font-bold">Mexico</option>
+                </select>
+            </div>
+                        
            <div id="inputs-restantes">
 
            </div>

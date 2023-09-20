@@ -1,5 +1,39 @@
+
 @include('layouts.header')
+@php
+    use App\Models\Producto;
+    $reversed_1 = Producto::all();
+    $productos = $reversed_1->reverse();
+    $productos->all();
+@endphp
 <div class="container mx-auto lg:mt-2 lg:mb-2">
+    @if ($msg == 'sucess')
+        <div id="message" class="bg-green-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
+            <p class="p-5">El pago ha sido realizado con exito!</p>
+        </div>
+    @endif
+    @if ($msg == 'failure')
+        <div id="message" class="bg-red-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
+            <p class="p-5">El pago no ha podido completarse!</p>
+        </div>
+    @endif
+    @if ($msg == 'pending')
+        <div id="message" class="bg-red-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
+            <p class="p-5">El pago ha quedado pendiente!</p>
+        </div>
+    @endif
+    @if ($msg == 'created')
+        <div id="message" class="bg-green-500 w-3/6 my-5 text-center text-white font-bold mx-auto rounded">
+            <p class="p-5">La factura ha sido creado con exito. Revisa tus compras</p>
+        </div>
+    @endif
+    
+
+    @if( $message = Session::get('exito'))
+        <div class="w-4/5 mx-auto my-5 bg-green-500">
+            <p class="p-2 m-2 text-center">{{ $message }}</p>
+        </div>
+    @endif
 
     <p class="text-center text-white font-bold text-2xl hover:text-gray-200"> No sabes que elegir? </p>
     <p class="text-center text-white font-bold text-sm hover:text-gray-300"  >y descubri nuestros productos</p>
@@ -42,3 +76,15 @@
 </div>
 
 @include('layouts.footer')
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const mensaje = document.querySelector('#message');
+        if(mensaje){
+            setTimeout(() => {
+                mensaje.classList.add("hidden");
+            }, 2000);
+        }
+    });
+
+</script>

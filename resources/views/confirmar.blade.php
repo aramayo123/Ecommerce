@@ -17,6 +17,10 @@
     $preference->metadata = [
         'direccion' => $direccion,
         'telefono' => $telefono,
+        'ciudad' => $ciudad,
+        'provincia' => $provincia,
+        'pais' => $pais,
+        'codigo_postal' => $codigo_postal,
         'user_id' => Auth::user()->id,
         'email' => Auth::user()->email,
         'lista_productos' => $lista_productos,

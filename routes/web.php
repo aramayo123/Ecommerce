@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WebHookController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Models\Producto;
-use App\Models\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Barryvdh\DomPDF\Facade\Pdf;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,53 +59,18 @@ Route::get('/facebook-auth/callback', function () {
 });
 Route::resource('productos', ProductoController::class);
 Route::resource('categorias', CategoriaController::class);
-Route::get('/', function () {
-    $productos = Producto::all();
-    return view('index', compact('productos'));
+Route::get('/', function (Request $request) {
+    $msg = $request->msg;
+    return view('index', compact('msg'));
 });
+
+
 Route::get('/producto/comentar', [ComentarioController::class, 'CrearComentario']);
-Route::get('/procesar', function(){
-    return view('procesar');
-})->name('procesar');
-
-Route::post('/payment', function(Request $request){
-    $rules = [
-        'direccion' => ['required', 'max:100', 'min:10'],
-        'telefono' => ['required','numeric', 'min:8'],
-    ];
-    $customMessages = [
-        'direccion.required' => 'Necesitamos que completes la direccion',
-        'direccion.max' => 'Direccion demaciado larga',
-        'direccion.min' => 'Direccion demaciado corto',
-        'telefono.required' => 'Necesitamos que agreges un numero de contacto',
-        'telefono.min' => 'Telefono demaciado corto',
-        'telefono.numeric' => 'Solo numeros por favor',
-    ];
-    $request->validate($rules, $customMessages);
-    $lista_productos = $request->input("productos");
-    $id_productos = $request->input("id_productos");
-    $direccion = $request->direccion;
-    $telefono = $request->telefono;
-    $total_precios = $request->total_precios;
-    return view('confirmar', compact('direccion', 'telefono', 'lista_productos', 'id_productos', 'total_precios'));
-})->name('payment');
-
-Route::get('/terminar', function(){
-    return view('limpiarStorage');
-})->name('terminar');
-
-Route::get('/pdf/view/{factura}', function($id){
-    $ticket = Ticket::findOrFail($id);
-    $pdf = Pdf::loadView('pdf.index', compact('ticket'));
-    return $pdf->stream();
-    //return $pdf->download('invoice.pdf');
-    // para q no lo deje volver hdp
-});
-Route::get('/pdf/download/{factura}', function($id){
-    $ticket = Ticket::findOrFail($id);
-    $pdf = Pdf::loadView('pdf.index', compact('ticket'));
-    return $pdf->download('factura.pdf');
-});
+Route::get('/procesar', [ShopController::class, 'Procesar'])->name('procesar');
+Route::post('/payment', [ShopController::class, 'Payment'])->name('payment');
+Route::get('/terminar', )->name('terminar');
+Route::get('/pdf/view/{factura}', [ShopController::class, 'ShowPdf']);
+Route::get('/pdf/download/{factura}', [ShopController::class, 'DownloadPdf']);
 // webhook
 Route::post('webhooks', WebHookController::class);
 

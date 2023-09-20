@@ -7,11 +7,8 @@
                     <th scope="col" class="px-6 py-3">
                         Factura Nº
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-4 py-3">
                         Fecha de la factura
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Fecha de vencimiento
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Total
@@ -25,19 +22,20 @@
                 @foreach ($facturas as $factura)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $factura->id_mercadopago }}
+                            {{ $factura->id }}
                         </th>
-                        <td class="px-6 py-4">
-                            {{ $factura->date_created }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $factura->date_of_expiration }}
+                        <td class="px-4 py-4">
+                            {{ $factura->fecha_creacion }}
                         </td>
                         <td class="px-6 py-4">
                             ${{ $factura->total_precio }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{ url('factura/'.$factura->id_mercadopago) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ $factura->estadoTicket() }}</a>
+                            @if (!$factura->bool_pagado)
+                                <a href="{{ url('factura/'.$factura->id_mercadopago) }}" class="bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-600">{{ $factura->estado }}</a>
+                            @else
+                                <a href="{{ url('factura/'.$factura->id_mercadopago) }}" class="bg-green-500 text-white font-bold py-1 px-2 rounded hover:bg-green-600">{{ $factura->estado }}</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

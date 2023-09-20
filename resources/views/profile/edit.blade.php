@@ -3,7 +3,7 @@
 
 <div class="container mx-auto lg:mt-2 lg:mb-2">
   <div class="w-full mx-auto my-10 flex flex-cols-2 ">
-    <div class="bg-gray-700 inline-block w-1/5 my-5 text-center h-1/2 py-5">
+    <div class="bg-gray-700 inline-block w-4/12 my-5 text-center h-1/2 py-5 rounded">
       @if(Auth::user()->avatar)
         <img src="{{ asset('img_profile/'.Auth::user()->avatar) }}" class="mx-auto rounded-full" width="150">
       @else
@@ -46,6 +46,7 @@
   const contenido_compras = document.querySelector('#compras');
   const contenido_borrar_cuenta = document.querySelector('#borrar-cuenta');
 
+  contenido_informacion_personal.classList.remove("hidden");
   boton_informacion_personal.addEventListener("click", function() {
     contenido_informacion_personal.classList.remove("hidden");
     contenido_update_password.classList.add("hidden");

@@ -13,19 +13,19 @@
 
   <div class="">
     <p class="text-2xl font-bold inline-block">Ecommerce</p>
-    <p class="text-xl font-bold inline-block" style="margin-left: 10%">{{ $ticket->estadoTicket() }}</p>
+    <p class="text-xl font-bold inline-block" style="margin-left: 10%">{{ $ticket->estado }}</p>
 
-    <p class="font-xl font-bold">Factura nro: {{ $ticket->id }}</p>
+    <p class="text-xl font-bold">Factura Nº: {{ $ticket->id }}</p>
     <hr class="my-5">
     <div class="flex flex-cols-2 justify-between">
       <div class="text-left">
         <p class="font-xl font-bold">Facturado a</p>
         <p>{{ $ticket->User->name }}</p>
         <p>{{ $ticket->direccion }}</p>
-        <p>Salta, Salta, 4400</p>
-        <p>Argentina</p>
+        <p>{{ $ticket->ciudad }}, {{ $ticket->provincia }}, {{ $ticket->codigo_postal }}</p>
+        <p>{{ $ticket->pais }}</p>
         <p class="font-xl font-bold">Fecha de la factura</p>
-        <p>{{ $ticket->date_created }}</p>
+        <p>{{ $ticket->fecha_creacion }} a las {{ $ticket->hora_creacion }}</p>
       </div>
       <div class="text-right">
         <p class="font-xl font-bold">Pagar a</p>
@@ -34,7 +34,7 @@
         <br>
         <br>
         <p class="font-xl font-bold">Método de pago</p>
-        <p>{{ $ticket->MetodoDePago() }}</p>
+        <p></p>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 <script>
     localStorage.removeItem("carrito");
     var carrito = []
-    window.location.assign('{{ url('/')}}');
+    var msg = '?msg=created';
+    window.location.assign(`{{ url('${msg}')}}`);
 </script>
