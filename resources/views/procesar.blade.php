@@ -44,11 +44,12 @@
             </div>
             <div class="mb-6">
                 <label for="pais" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pais: <p class="inline-block text-red-500">*</p></label>
-                <select id="pais" name="pais" class="font-bold bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="Argentina" class="font-bold">Argentina</option>
-                    <option value="Chile" class="font-bold">Chile</option>
-                    <option value="Brazil" class="font-bold">Brazil</option>
-                    <option value="Mexico" class="font-bold">Mexico</option>
+                <select id="pais" name="pais"  class="font-bold bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" class="font-bold">Selecciona un pais</option>
+                    <option value="Argentina" <?php if(old('pais') == 'Argentina') echo 'selected'; ?> class="font-bold">Argentina</option>
+                    <option value="Chile" <?php if(old('pais') == 'Chile') echo 'selected'; ?> class="font-bold">Chile</option>
+                    <option value="Brazil" <?php if(old('pais') == 'Brazil') echo 'selected'; ?> class="font-bold">Brazil</option>
+                    <option value="Mexico" <?php if(old('pais') == 'Mexico') echo 'selected'; ?> class="font-bold">Mexico</option>
                 </select>
             </div>
                         

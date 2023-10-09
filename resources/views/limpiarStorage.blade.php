@@ -1,3 +1,4 @@
+
 <script>
     localStorage.removeItem("carrito");
     var carrito = []

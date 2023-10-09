@@ -67,7 +67,7 @@
                                     <div onclick="pintar(this)" class="bg-white mx-auto rounded-xl text-black gap-2 p-2 hover:cursor-pointer hover:bg-black border-solid border-2 border-sky-500">
                                         <div style="background-color: {{ $color->color }};" class="rounded-full h-4 w-4 mx-auto"></div>
                                     </div>
-                                    <input class="hidden" type="checkbox" id="{{ $color->id }}" value="{{ $color->color }}">
+                                    <input class="" type="checkbox" id="{{ $color->id }}" value="{{ $color->color }}">
                                 </label>
                             </div>
                             <div class="grid grid-cols-2 gap-2">

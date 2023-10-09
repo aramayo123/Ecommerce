@@ -7,28 +7,6 @@
     $productos->all();
 @endphp
 <div class="container mx-auto lg:mt-2 lg:mb-2">
-    @if ($msg == 'sucess')
-        <div id="message" class="bg-green-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
-            <p class="p-5">El pago ha sido realizado con exito!</p>
-        </div>
-    @endif
-    @if ($msg == 'failure')
-        <div id="message" class="bg-red-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
-            <p class="p-5">El pago no ha podido completarse!</p>
-        </div>
-    @endif
-    @if ($msg == 'pending')
-        <div id="message" class="bg-red-500 w-1/3 my-5 text-center text-white font-bold mx-auto rounded">
-            <p class="p-5">El pago ha quedado pendiente!</p>
-        </div>
-    @endif
-    @if ($msg == 'created')
-        <div id="message" class="bg-green-500 w-3/6 my-5 text-center text-white font-bold mx-auto rounded">
-            <p class="p-5">La factura ha sido creado con exito. Revisa tus compras</p>
-        </div>
-    @endif
-    
-
     @if( $message = Session::get('exito'))
         <div class="w-4/5 mx-auto my-5 bg-green-500">
             <p class="p-2 m-2 text-center">{{ $message }}</p>
@@ -78,13 +56,31 @@
 @include('layouts.footer')
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const mensaje = document.querySelector('#message');
-        if(mensaje){
-            setTimeout(() => {
-                mensaje.classList.add("hidden");
-            }, 2000);
+    const message = '<?php if($msg){ echo $msg; }?>';
+    console.log(message)
+    if(message){
+        let icon, title;
+        if(message === 'created' || message === 'sucess'){
+            icon = 'success';
+            if(message === 'created'){
+                title = 'La factura ha sido creado con exito. Revisa tus compras';
+            }else{
+                title = 'El pago ha sido realizado con exito!';
+            }
+        }else if(message === 'failure'){
+            icon = 'error';
+            title = 'El pago no ha podido completarse!';
+        }else{ // pending
+            icon = 'warning';
+            title = 'El pago ha quedado pendiente!';
         }
-    });
-
+        Swal.fire({
+            position: 'cencer',
+            icon: icon,
+            title: title,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+    
 </script>

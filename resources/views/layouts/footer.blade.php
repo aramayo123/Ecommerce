@@ -193,6 +193,11 @@
         }
         localStorage.setItem("carrito", JSON.stringify(data));
     }
+
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.all.min.js"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
 </body>
 </html>
+
