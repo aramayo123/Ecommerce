@@ -28,7 +28,7 @@
     <div id="compras" class="hidden inline-block w-full text-center pt-5">
       @include('profile.partials.compras')
     </div>
-    <div id="borrar-cuenta" class="hidden bg-green-500 inline-block w-full text-center pt-5">
+    <div id="borrar-cuenta" class="hidden inline-block w-full text-center pt-5">
       @include('profile.partials.delete-user-form')
     </div>
   </div>

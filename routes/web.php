@@ -63,14 +63,15 @@ Route::get('/', function (Request $request) {
     $msg = $request->msg;
     return view('index', compact('msg'));
 });
-
-
 Route::get('/producto/comentar', [ComentarioController::class, 'CrearComentario']);
-Route::get('/procesar', [ShopController::class, 'Procesar'])->name('procesar');
-Route::post('/payment', [ShopController::class, 'Payment'])->name('payment');
-Route::get('/terminar', )->name('terminar');
-Route::get('/pdf/view/{factura}', [ShopController::class, 'ShowPdf']);
-Route::get('/pdf/download/{factura}', [ShopController::class, 'DownloadPdf']);
+Route::middleware('auth')->group(function () {
+    Route::get('/procesar', [ShopController::class, 'Procesar'])->name('procesar');
+    Route::post('/payment', [ShopController::class, 'Payment'])->name('payment');
+    Route::get('/terminar', )->name('terminar');
+    Route::get('/pdf/view/{factura}', [ShopController::class, 'ShowPdf']);
+    Route::get('/pdf/download/{factura}', [ShopController::class, 'DownloadPdf']);
+});
+
 // webhook
 Route::post('webhooks', WebHookController::class);
 
